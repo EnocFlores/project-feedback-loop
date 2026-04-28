@@ -19,6 +19,7 @@
   "devDependencies": {
     "@eslint/js": "latest",
     "@types/node": "latest",
+    "@vitest/coverage-v8": "latest",
     "eslint": "latest",
     "eslint-plugin-sonarjs": "latest",
     "husky": "latest",
@@ -28,4 +29,3 @@
     "vitest": "latest"
   }
 }
-

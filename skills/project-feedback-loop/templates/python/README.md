@@ -13,7 +13,9 @@ This template is a strict Python scaffold for repositories that want a determini
 
 ## Commands
 
+- bootstrap nox: `pipx install nox`
 - install: `python -m pip install -e ".[dev]"`
+- format: `nox -s format`
 - lint: `nox -s lint`
 - typecheck: `nox -s typecheck`
 - tests: `nox -s tests`
@@ -26,6 +28,7 @@ This template is a strict Python scaffold for repositories that want a determini
 
 - canonical verify command: `nox -s verify`
 - CI command: `nox -s verify`
+- formatter command: `nox -s format`
 
 ## Style expectations
 

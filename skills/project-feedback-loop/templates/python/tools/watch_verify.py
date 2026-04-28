@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import subprocess
+
 from watchfiles import watch
 
 VERIFY_CMD = "python -m nox -s verify"
@@ -13,4 +14,3 @@ for _changes in watch("."):
         print("verify: pass")
     else:
         print(f"verify: fail ({result.returncode})")
-

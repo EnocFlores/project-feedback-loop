@@ -27,6 +27,9 @@ agent = [
   "langsmith"
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/example_pkg"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py312"
@@ -47,4 +50,3 @@ disallow_any_generics = true
 [tool.pytest.ini_options]
 addopts = "-q"
 testpaths = ["tests"]
-

@@ -22,7 +22,7 @@ export default tseslint.config(
     },
     rules: {
       "no-console": "error",
-      "complexity": ["error", 10],
+      complexity: ["error", 10],
       "max-depth": ["error", 3],
       "max-lines-per-function": ["error", 40],
       "max-params": ["error", 4],
