@@ -15,6 +15,7 @@ This skill turns a repository into a system with deterministic guardrails.
 
 It will:
 - inspect project state
+- classify repository maturity and current enforcement strength
 - choose a language-appropriate conservative stack
 - scaffold missing config, hooks, CI, and AGENTS.md
 - define one canonical verification command
@@ -28,33 +29,51 @@ It will:
    - Python: look for pyproject.toml, requirements files, noxfile.py, pytest config
    - Mixed: detect both and define a root-level verify contract
 
-2. Prefer conservative defaults.
+2. Classify repository maturity before tightening rules.
+   - New repo: start strict and keep the baseline narrow, explicit, and automated
+   - Established repo: preserve safe operation first, then tighten constraints between iterations
+   - Legacy high-complexity repo: allow a higher starting threshold only when needed to adopt the loop safely, and document a ratchet-down plan
+
+3. Prefer conservative defaults.
    - JS or TS: ESLint + Prettier + strict TypeScript + Vitest + Husky
    - Python: Ruff + Black + mypy + pytest + pre-commit + watchfiles + Nox
 
-3. Always create or update AGENTS.md.
+4. Always create or update AGENTS.md.
    Include:
    - install command
    - canonical verify command
    - focused repair order
    - any architectural constraints discovered during setup
+   - any staged tightening plan for legacy thresholds
 
-4. Define exactly one canonical verification contract.
+5. Define exactly one canonical verification contract.
    - JS or TS default: `npm run verify`
    - Python default: `nox -s verify`
    - Mixed repos: a root command that dispatches to both
 
-5. Repair loop policy.
-   - run verify
-   - classify failures: format, lint, type, unit, integration, env, dependency, architecture drift
-   - apply the smallest safe fix
-   - rerun the narrowest relevant checks
-   - rerun full verify
+6. Repair loop policy.
+    - run verify
+    - classify failures: format, lint, type, unit, integration, env, dependency, architecture drift
+    - apply the smallest safe fix
+    - rerun the narrowest relevant checks
+    - rerun full verify
 
-6. Continuous hardening.
-    - if the same failure family appears twice, add a regression test, stronger lint rule, type constraint, or AGENTS.md rule
-    - log significant repetitions in `state/patterns.yml`
-    - append runs to `state/history.jsonl`
+7. Continuous hardening.
+   - first occurrence: apply the smallest safe fix
+   - second occurrence: add a regression test, stronger type constraint, or clearer AGENTS.md rule
+   - repeated architecture drift: prefer a custom lint rule or stronger static check
+   - repeated UI regressions: highly recommend visual verification in CI
+   - repeated runtime regressions: highly recommend observability-backed feedback loops and integration checks
+   - log significant repetitions in `state/patterns.yml`
+   - append runs to `state/history.jsonl`
+
+## Highly Recommended When Applicable
+
+- Visual verification loops for UI-heavy repositories, design systems, and workflows where layout, rendering, or interaction regressions are expensive.
+- Observability-backed feedback loops for deployed, user-facing, or asynchronous systems where runtime failures reveal gaps that static checks and unit tests cannot see.
+- Complexity guardrails early in new repositories, and ratcheted complexity caps for established repositories that need gradual tightening instead of one disruptive rewrite.
+
+Treat these as optional by project fit, but strongly prefer them once UI risk or production/runtime risk is real.
 
 ## NEVER
 
@@ -73,6 +92,10 @@ It will:
 - **NEVER define multiple competing verify commands for the same repository**
   **Instead:** publish one canonical verify command and make local fast checks subordinate to it.
   **Why:** agents need one objective contract; multiple sources of truth create drift and false confidence.
+
+- **NEVER preserve legacy complexity just because the repository is already large**
+  **Instead:** adopt the feedback loop at the current safe threshold, then document and enforce a plan to tighten complexity between iterations.
+  **Why:** legacy repositories need safe adoption, but permanent exceptions let drift become policy.
 
 ## Safe auto-apply rules
 
@@ -107,6 +130,8 @@ If the budget is exhausted:
 
 MANDATORY READ:
 - Read `references/primary-sources.md` before introducing or changing verification tooling, hooks, CI, AGENTS.md conventions, or language-specific stack defaults.
+- Read `references/maturity-modes.md` before setting thresholds for a greenfield, established, or legacy repository.
+- Read `references/recommended-feedback-loops.md` before deciding whether to recommend visual verification or observability-backed loops.
 
 Use these prompts when planning or repairing work:
 - `prompts/planner.md`

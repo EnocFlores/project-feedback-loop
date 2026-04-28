@@ -10,6 +10,13 @@ Use this skill when you want an agent to bootstrap or harden a repository around
 - define one canonical verify command
 - run a repair loop until green or until the retry budget is exhausted
 - convert recurring failures into stronger checks
+- recommend higher-value feedback loops when the project risk justifies them
+
+## Posture
+
+- new repositories should start strict and keep the contract narrow, explicit, and automated
+- established repositories can adopt the loop incrementally, with a staged plan to tighten thresholds between iterations
+- visual verification and observability-backed loops are optional, but highly recommended once UI or runtime risk is real
 
 ## Package contents
 
@@ -45,3 +52,9 @@ These are optional wrappers around:
 1. an objective verification command
 2. a fix command that can repair or continue the workflow
 3. a retry budget and failure-log path
+
+## Recommended expansions
+
+- visual verification for UI-heavy repositories
+- observability-backed feedback loops for deployed or user-facing systems
+- staged complexity ratcheting for established and legacy repositories
