@@ -21,14 +21,6 @@ It will:
 - run a repair loop until verification passes or the retry budget is exhausted
 - record recurring failure signatures and hardening actions
 
-## When to use this skill
-
-Use this skill when the user asks to:
-- bootstrap a new repo with linting, formatting, typing, tests, hooks, and CI
-- upgrade an existing repo to a strict automated verification contract
-- keep a repo green while an agent writes or refactors code
-- turn recurring defects into stronger tests or constraints
-
 ## Execution rules
 
 1. Detect the project shape first.
@@ -60,9 +52,27 @@ Use this skill when the user asks to:
    - rerun full verify
 
 6. Continuous hardening.
-   - if the same failure family appears twice, add a regression test, stronger lint rule, type constraint, or AGENTS.md rule
-   - log significant repetitions in `state/patterns.yml`
-   - append runs to `state/history.jsonl`
+    - if the same failure family appears twice, add a regression test, stronger lint rule, type constraint, or AGENTS.md rule
+    - log significant repetitions in `state/patterns.yml`
+    - append runs to `state/history.jsonl`
+
+## NEVER
+
+- **NEVER rely on instructions alone when a deterministic check can enforce the rule**
+  **Instead:** encode the rule in linting, typing, tests, hooks, or CI.
+  **Why:** prompts and AGENTS.md improve first-pass behavior, but only automated checks keep the repo aligned under repeated agent edits.
+
+- **NEVER weaken lint, type, test, or CI requirements just to get green**
+  **Instead:** make the smallest safe fix, or stop and report the blocker when the retry budget is exhausted.
+  **Why:** a green build with weaker protections breaks the feedback loop and lets the same defect family return.
+
+- **NEVER keep repeating the same manual repair for the same failure family**
+  **Instead:** convert repeated failures into one stronger guardrail: a regression test, stricter type, lint rule, or AGENTS.md rule.
+  **Why:** the loop should tighten over time; repeated fixes without hardening create review toil instead of system learning.
+
+- **NEVER define multiple competing verify commands for the same repository**
+  **Instead:** publish one canonical verify command and make local fast checks subordinate to it.
+  **Why:** agents need one objective contract; multiple sources of truth create drift and false confidence.
 
 ## Safe auto-apply rules
 
@@ -95,11 +105,13 @@ If the budget is exhausted:
 
 ## Supporting files
 
-Read these sibling files when needed:
+MANDATORY READ:
+- Read `references/primary-sources.md` before introducing or changing verification tooling, hooks, CI, AGENTS.md conventions, or language-specific stack defaults.
+
+Use these prompts when planning or repairing work:
 - `prompts/planner.md`
 - `prompts/fixer.md`
 - `prompts/hardener.md`
-- `references/primary-sources.md`
 
 Use these templates when scaffolding:
 - `templates/common/*`
@@ -110,4 +122,3 @@ Use these helper scripts when a wrapper loop is useful:
 - `scripts/agent-runner.py`
 - `scripts/agent-runner.mjs`
 - `scripts/watch-verify.py`
-
