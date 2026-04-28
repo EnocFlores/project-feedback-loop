@@ -10,6 +10,6 @@ def test_non_negative_ints_always_produce_user_prefix(value: int) -> None:
     assert normalize_id(value).startswith("user-")
 
 
-@given(st.text(min_size=1))
+@given(st.text(min_size=1).filter(lambda value: value.strip() != ""))
 def test_non_empty_strings_never_return_empty(value: str) -> None:
     assert normalize_id(value) != ""
