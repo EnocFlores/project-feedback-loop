@@ -1,0 +1,20 @@
+# skills/project-feedback-loop/state/patterns.yml
+patterns:
+  - signature: "console-log-in-production"
+    category: lint
+    count: 2
+    recommended_action: "Add or tighten a no-console rule and document the approved logger in AGENTS.md"
+    auto_apply_when_safe: true
+
+  - signature: "repeated-type-regressions-from-loose-inputs"
+    category: type
+    count: 2
+    recommended_action: "Add stricter input types and a regression test around the failing boundary"
+    auto_apply_when_safe: true
+
+  - signature: "snapshot-drift-without-clear-ui-intent"
+    category: integration
+    count: 2
+    recommended_action: "Do not auto-update snapshots; require human review"
+    auto_apply_when_safe: false
+

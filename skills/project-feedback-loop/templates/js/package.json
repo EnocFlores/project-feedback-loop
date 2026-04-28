@@ -1,0 +1,31 @@
+{
+  "name": "js-feedback-loop-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage",
+    "verify:fast": "npm run lint && npm run typecheck && vitest run",
+    "verify": "npm run lint && npm run typecheck && npm run test:ci && npm run format:check",
+    "watch:test": "vitest watch",
+    "watch:typecheck": "tsc --noEmit --watch",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "eslint-plugin-sonarjs": "latest",
+    "husky": "latest",
+    "prettier": "latest",
+    "typescript": "latest",
+    "typescript-eslint": "latest",
+    "vitest": "latest"
+  }
+}
+
