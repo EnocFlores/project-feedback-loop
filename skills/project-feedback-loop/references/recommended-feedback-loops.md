@@ -34,6 +34,9 @@ Examples:
 
 ## Escalation guidance
 
+- `L0 -> L1`: canonical verify command, strict local gate, and CI parity.
+- `L1 -> L2`: custom lint rules, architecture checks, and stronger static enforcement.
+- `L2 -> L3`: visual verification, observability-backed loops, or both when static checks miss important failures.
 - Repeated architecture drift should bias toward custom lint rules or stronger static checks.
 - Repeated UI regressions should bias toward visual verification in CI.
 - Repeated runtime regressions should bias toward observability, integration checks, or both.

@@ -29,10 +29,18 @@ It will:
    - Python: look for pyproject.toml, requirements files, noxfile.py, pytest config
    - Mixed: detect both and define a root-level verify contract
 
-2. Classify repository maturity before tightening rules.
-   - New repo: start strict and keep the baseline narrow, explicit, and automated
-   - Established repo: preserve safe operation first, then tighten constraints between iterations
-   - Legacy high-complexity repo: allow a higher starting threshold only when needed to adopt the loop safely, and document a ratchet-down plan
+2. Classify the repository on two independent axes before tightening rules.
+   - Loop Level:
+     - `L0 - Vibes`: no reliable automated enforcement; humans catch most issues
+     - `L1 - Guardrails`: standard lint, type, test, and CI exist; architectural drift still slips through
+     - `L2 - Architecture as Code`: custom rules encode team conventions, migration boundaries, or design constraints
+     - `L3 - Organism`: rules, CI, visual or runtime feedback, and task intake reinforce each other
+   - Repo Profile:
+     - `R1 - Greenfield`: small or new repository; strict defaults should start immediately
+     - `R2 - Established, Tighten-able`: active repository with a stable delivery path; tighten in staged iterations
+     - `R3 - Legacy, High-Complexity`: large or drifted repository; adopt safely at the current threshold, then ratchet down
+     - `R4 - Mixed/Platform-Scale`: multi-language, multi-surface, or shared-platform repository requiring coordinated contracts
+   - Always return both values, for example `L1 / R3`.
 
 3. Prefer conservative defaults.
    - JS or TS: ESLint + Prettier + strict TypeScript + Vitest + Husky
@@ -67,6 +75,12 @@ It will:
    - log significant repetitions in `state/patterns.yml`
    - append runs to `state/history.jsonl`
 
+8. Use the classification pair to choose the next smallest high-signal upgrade.
+   - `L0 -> L1`: establish one canonical verify command, strict local checks, and CI that mirrors the local gate
+   - `L1 -> L2`: move repeated review comments and migration rules into custom lint rules or stronger static checks
+   - `L2 -> L3`: add visual verification, observability-backed loops, or both when UI or runtime risk is real
+   - `R3` and `R4`: preserve safe delivery first, then document the next stricter target instead of forcing one disruptive cleanup
+
 ## Highly Recommended When Applicable
 
 - Visual verification loops for UI-heavy repositories, design systems, and workflows where layout, rendering, or interaction regressions are expensive.
@@ -96,6 +110,10 @@ Treat these as optional by project fit, but strongly prefer them once UI risk or
 - **NEVER preserve legacy complexity just because the repository is already large**
   **Instead:** adopt the feedback loop at the current safe threshold, then document and enforce a plan to tighten complexity between iterations.
   **Why:** legacy repositories need safe adoption, but permanent exceptions let drift become policy.
+
+- **NEVER collapse repository maturity and repository complexity into one score**
+  **Instead:** classify both loop level and repo profile, then choose the next smallest upgrade from the pair.
+  **Why:** maturity and complexity are different planning signals; one combined score hides the right next move.
 
 ## Safe auto-apply rules
 

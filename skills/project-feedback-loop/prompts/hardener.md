@@ -10,10 +10,13 @@ For each repeated failure signature, choose exactly one action:
 - recommend a dependency or tooling change
 
 Bias:
+- `L0 -> L1` gaps -> canonical verify contract, strict local checks, and CI parity
+- `L1 -> L2` gaps -> custom lint rule or stronger static check
+- `L2 -> L3` gaps -> visual verification, observability-backed loop, or both
 - repeated architecture drift -> custom lint rule or stronger static check
 - repeated UI regressions -> visual verification in CI
 - repeated runtime regressions -> observability-backed loop, integration check, or both
-- legacy thresholds that are still too loose -> staged ratchet plan with a stricter next target
+- `R3` and `R4` profiles with thresholds that are still too loose -> staged ratchet plan with a stricter next target
 
 Auto-apply only if:
 - the change is local

@@ -18,6 +18,12 @@ Use this skill when you want an agent to bootstrap or harden a repository around
 - established repositories can adopt the loop incrementally, with a staged plan to tighten thresholds between iterations
 - visual verification and observability-backed loops are optional, but highly recommended once UI or runtime risk is real
 
+## Classification
+
+- `Loop Level`: `L0 - Vibes`, `L1 - Guardrails`, `L2 - Architecture as Code`, `L3 - Organism`
+- `Repo Profile`: `R1 - Greenfield`, `R2 - Established, Tighten-able`, `R3 - Legacy, High-Complexity`, `R4 - Mixed/Platform-Scale`
+- Use the pair together, for example `L1 / R3`, to choose the next smallest high-signal upgrade.
+
 ## Package contents
 
 - `SKILL.md` defines the activation contract and execution rules
