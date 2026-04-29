@@ -2,6 +2,28 @@
 
 Use these loops when the project shape justifies them. They are optional, but highly recommended when the risk is real.
 
+## Structural guardrails
+
+Recommend structural guardrails when:
+
+- the repository has no complexity or size constraints on production code
+- hotspot files keep triggering review pain or repair-loop churn
+- architecture drift is visible, but still treated as a manual cleanup problem
+- the ecosystem supports mature static checks for complexity, file size, depth, or cognitive complexity
+
+Rollout guidance:
+
+- call out missing structural guardrails explicitly during planning or audit
+- classify them as `must add now`, `recommended next`, or `intentionally deferred`
+- prefer repo-wide lower-strictness thresholds first, then ratchet down over time
+- avoid hotspot carve-outs or path-based exemptions as the default strategy
+- reserve narrow exemptions for clearly different surfaces such as tests or generated code
+
+Examples:
+
+- JS/TS: `complexity`, `max-depth`, `max-lines-per-function`, `max-params`, `max-statements`, and cognitive complexity rules
+- other ecosystems: the strongest mainstream structural checks available for module size, branching complexity, or maintainability
+
 ## Visual verification
 
 Recommend visual checks when:

@@ -41,6 +41,7 @@ Use two axes so the plan reflects both current enforcement and repository scale.
 
 - Preserve the current delivery path while introducing an objective verify contract.
 - Tighten the highest-value gaps first: formatting, linting, type safety, and core tests.
+- If structural guardrails are missing, call that out explicitly and classify whether they must land now, should land next, or are intentionally deferred.
 - Convert recurring review comments into automated checks as soon as the pattern is clear.
 - Raise new protections in staged iterations instead of one broad cleanup.
 
@@ -48,6 +49,7 @@ Use two axes so the plan reflects both current enforcement and repository scale.
 
 - Start from the safest threshold that the repository can actually adopt.
 - Document which limits are temporarily higher and why.
+- Prefer one repo-wide lower-strictness threshold over hotspot-specific carve-outs when rolling out structural guardrails.
 - Require a ratchet-down plan for complexity, drift, and missing coverage.
 - Each iteration should remove one source of tolerated inconsistency.
 
@@ -63,6 +65,7 @@ Use two axes so the plan reflects both current enforcement and repository scale.
 - Never lower protections to get green.
 - Temporary exceptions must have an exit path.
 - When a stricter threshold is not yet feasible, keep the canonical verify contract stable and narrow the gap in later passes.
+- Avoid per-file or per-path exemptions as the default rollout for structural guardrails; reserve them for clearly different non-production surfaces such as tests or generated code.
 
 ## Pairing guidance
 

@@ -45,6 +45,8 @@ It will:
 3. Prefer conservative defaults.
    - JS or TS: ESLint + Prettier + strict TypeScript + Vitest + Husky
    - Python: Ruff + Black + mypy + pytest + pre-commit + watchfiles + Nox
+   - If structural guardrails are missing, explicitly call that out and propose a starter rollout.
+   - Treat the canonical verify contract and structural guardrails as complementary first-pass hardening steps, not separate optional tracks.
 
 4. Always create or update AGENTS.md.
    Include:
@@ -70,6 +72,7 @@ It will:
    - first occurrence: apply the smallest safe fix
    - second occurrence: add a regression test, stronger type constraint, or clearer AGENTS.md rule
    - repeated architecture drift: prefer a custom lint rule or stronger static check
+   - if a stack supports mature complexity tooling and no complexity guardrails exist, propose initial shared thresholds during the first hardening pass
    - repeated UI regressions: highly recommend visual verification in CI
    - repeated runtime regressions: highly recommend observability-backed feedback loops and integration checks
    - log significant repetitions in `state/patterns.yml`
@@ -111,6 +114,10 @@ Treat these as optional by project fit, but strongly prefer them once UI risk or
   **Instead:** adopt the feedback loop at the current safe threshold, then document and enforce a plan to tighten complexity between iterations.
   **Why:** legacy repositories need safe adoption, but permanent exceptions let drift become policy.
 
+- **NEVER use legacy hotspot carve-outs as the default rollout strategy for structural guardrails**
+  **Instead:** prefer repo-wide lower-strictness thresholds, warning-level rollouts when appropriate, and documented ratchets over time.
+  **Why:** scattered file or path exemptions hide drift, normalize exceptions, and make the next tightening step harder to see.
+
 - **NEVER collapse repository maturity and repository complexity into one score**
   **Instead:** classify both loop level and repo profile, then choose the next smallest upgrade from the pair.
   **Why:** maturity and complexity are different planning signals; one combined score hides the right next move.
@@ -147,21 +154,21 @@ If the budget is exhausted:
 ## Supporting files
 
 MANDATORY READ:
-- Read `references/primary-sources.md` before introducing or changing verification tooling, hooks, CI, AGENTS.md conventions, or language-specific stack defaults.
-- Read `references/maturity-modes.md` before setting thresholds for a greenfield, established, or legacy repository.
-- Read `references/recommended-feedback-loops.md` before deciding whether to recommend visual verification or observability-backed loops.
+- Read [primary sources](references/primary-sources.md) before introducing or changing verification tooling, hooks, CI, AGENTS.md conventions, or language-specific stack defaults.
+- Read [maturity modes](references/maturity-modes.md) before setting thresholds for a greenfield, established, or legacy repository.
+- Read [recommended feedback loops](references/recommended-feedback-loops.md) before deciding whether to recommend visual verification or observability-backed loops.
 
 Use these prompts when planning or repairing work:
-- `prompts/planner.md`
-- `prompts/fixer.md`
-- `prompts/hardener.md`
+- [planner prompt](prompts/planner.md)
+- [fixer prompt](prompts/fixer.md)
+- [hardener prompt](prompts/hardener.md)
 
 Use these templates when scaffolding:
-- `templates/common/*`
-- `templates/js/*`
-- `templates/python/*`
+- [common templates](templates/common/)
+- [JS templates](templates/js/)
+- [Python templates](templates/python/)
 
 Use these helper scripts when a wrapper loop is useful:
-- `scripts/agent-runner.py`
-- `scripts/agent-runner.mjs`
-- `scripts/watch-verify.py`
+- [Python agent runner](scripts/agent-runner.py)
+- [Node agent runner](scripts/agent-runner.mjs)
+- [watch verify helper](scripts/watch-verify.py)

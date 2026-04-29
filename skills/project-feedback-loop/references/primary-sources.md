@@ -1,5 +1,8 @@
 # Primary sources
 
+- Agent Skills specification: https://agentskills.io/specification
+- Agent Skills documentation index: https://agentskills.io/llms.txt
+
 - OpenCode Agent Skills: https://opencode.ai/docs/skills
 - OpenCode Tools: https://opencode.ai/docs/tools
 - OpenCode Permissions: https://opencode.ai/docs/permissions
@@ -43,4 +46,3 @@
 
 - GitHub Actions Node.js: https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs
 - GitHub Actions Python: https://docs.github.com/en/actions/tutorials/build-and-test-code/python
-
