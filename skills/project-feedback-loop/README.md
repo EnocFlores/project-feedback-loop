@@ -31,15 +31,16 @@ Use this skill when you want an agent to bootstrap or harden a repository around
 - `references/` contains background material used to shape the skill
 - `scripts/` contains optional repair-loop helpers
 - `state/` stores learned patterns, decisions, and run history
-- `templates/` contains shared, JS, and Python scaffolds
+- `templates/` contains shared, JS, Python, and Rust scaffolds
 
 ## Supported templates
 
 - `templates/js/` for TS-first JavaScript projects
 - `templates/python/` for Python projects
+- `templates/rust/` for Rust crates and workspaces
 - `templates/common/` for shared `AGENTS.md` scaffolding
 
-See `templates/js/README.md` and `templates/python/README.md` for template-specific commands and conventions.
+See `templates/js/README.md`, `templates/python/README.md`, and `templates/rust/README.md` for template-specific commands and conventions.
 
 ## State
 

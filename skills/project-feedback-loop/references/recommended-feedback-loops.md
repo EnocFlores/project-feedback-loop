@@ -22,7 +22,24 @@ Rollout guidance:
 Examples:
 
 - JS/TS: `complexity`, `max-depth`, `max-lines-per-function`, `max-params`, `max-statements`, and cognitive complexity rules
+- Rust: `cargo clippy --workspace --all-targets --all-features -- -D warnings`, `cargo check --workspace --all-targets --all-features`, and `cargo deny check`
 - other ecosystems: the strongest mainstream structural checks available for module size, branching complexity, or maintainability
+
+## Hook health
+
+Recommend explicit hook-health checks when:
+
+- the repository relies on Git hooks for local enforcement
+- `.pre-commit-config.yaml` or similar hook config exists, but activation is not verified
+- `core.hooksPath` may differ from the default Git hook directory
+- optional provisioners or task runners are introduced for setup convenience
+
+Rollout guidance:
+
+- detect `core.hooksPath` and the active hook directory
+- verify that real hook files exist where Git will execute them
+- treat optional provisioners such as `mise` as accelerators for setup, not proof of durable hook activation
+- prefer a repo-owned install-and-verify flow after provisioning completes
 
 ## Visual verification
 

@@ -100,6 +100,7 @@ Supported project shapes currently include:
 
 - TS-first JavaScript repositories
 - Python repositories
+- Rust crates and workspaces
 - mixed repositories, when a root verification contract is defined
 
 ## How the loop works
@@ -150,7 +151,7 @@ Key paths:
 - `skills/project-feedback-loop/references/recommended-feedback-loops.md` - visual and observability loop guidance
 - `skills/project-feedback-loop/scripts/` - optional repair-loop wrappers
 - `skills/project-feedback-loop/state/` - learned patterns, decisions, and run history
-- `skills/project-feedback-loop/templates/` - shared, JS, and Python scaffolds
+- `skills/project-feedback-loop/templates/` - shared, JS, Python, and Rust scaffolds
 
 ## Templates
 
@@ -196,6 +197,30 @@ nox -s lint
 nox -s typecheck
 nox -s tests
 nox -s verify
+```
+
+### Rust template
+
+Located in `skills/project-feedback-loop/templates/rust`.
+
+Highlights:
+
+- rustfmt for deterministic formatting
+- Clippy with warnings denied
+- `cargo check` for compiler and build validation
+- `cargo nextest` for fast test execution plus separate doctests
+- `cargo-deny` for dependency policy checks
+- GitHub Actions CI running `./scripts/verify.sh`
+- repo-owned `.githooks/pre-commit` hook support
+
+Representative commands:
+
+```bash
+./scripts/verify.sh
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo nextest run --workspace --all-features
+cargo test --doc --workspace --all-features
+cargo deny check
 ```
 
 ## Helper runners

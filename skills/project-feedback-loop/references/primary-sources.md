@@ -44,5 +44,12 @@
 - Nox docs: https://nox.thea.codes/
 - uv docs: https://docs.astral.sh/uv/
 
+- Cargo Book: https://doc.rust-lang.org/cargo/
+- Rustfmt docs: https://github.com/rust-lang/rustfmt
+- Clippy docs: https://doc.rust-lang.org/clippy/
+- cargo-nextest docs: https://nexte.st/
+- cargo-deny docs: https://embarkstudios.github.io/cargo-deny/
+
 - GitHub Actions Node.js: https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs
 - GitHub Actions Python: https://docs.github.com/en/actions/tutorials/build-and-test-code/python
+- GitHub Actions Rust: https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-rust
