@@ -4,7 +4,7 @@ description: "Scaffold or upgrade a software project with a strict automated fee
 metadata:
   author: EnocFlores
   workflow: scaffold-verify-harden
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # Project Feedback Loop
